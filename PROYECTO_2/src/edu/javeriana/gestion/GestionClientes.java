@@ -192,5 +192,17 @@ public class GestionClientes {
 
     }
 
+	public Cliente buscarClientePorCodigo(List<Cliente> lista, Long codCliente) {
+		Cliente clienteEncontrado = null;
+        for(int yu = 0; yu< lista.size(); yu++)
+        {
+            if(codCliente==lista.get(yu).getCodigoCliente())
+            {
+                clienteEncontrado = lista.get(yu);
+            }
+        }
+		return clienteEncontrado;
+	}
+
 
 }

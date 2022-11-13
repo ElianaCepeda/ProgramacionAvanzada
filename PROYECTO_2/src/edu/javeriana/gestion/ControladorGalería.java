@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.Scanner;
 import edu.javeriana.entidades.Artista;
 import edu.javeriana.entidades.Cliente;
+import edu.javeriana.entidades.Compra;
 import edu.javeriana.entidades.Obra;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -15,6 +16,7 @@ public class ControladorGalería {
 	private GestionObras gestionObras = new GestionObras();
 	private List<Cliente> listaClientes = new LinkedList<>();
 	private GestionClientes gestionCliente = new GestionClientes();
+	private List<Compra> compras = new LinkedList<>();
 
 	public ControladorGalería() {
 		this.listaObras = gestionObras.CrearLista();
@@ -24,7 +26,7 @@ public class ControladorGalería {
 
 	public void VerListaObrasDisponibles() {
 		for (int y = 0; y < listaObras.size(); y++) {
-			if (listaObras.get(y).estado == true) {
+			if (listaObras.get(y).getEstado() == true) {
 				System.out.println("-------------------");
 				System.out.println("Obra " + (y + 1) + ":");
 				System.out.println("Codigo de la Obra: " + listaObras.get(y).getCodigoObra());
@@ -47,6 +49,17 @@ public class ControladorGalería {
 			System.out.println("Dirección : " + listaClientes.get(p).getDireccionEntrega());
 			System.out.println("Telefono : " + listaClientes.get(p).getTelefono());
 		}
+	}
+	
+	public Cliente BuscarCliente() throws IOException {
+		Long codCliente;
+		Cliente clienteEncontrado;
+		try (Scanner scanner = new Scanner(System.in)) {
+			System.out.println("Escriba el codigo del cliente");
+			codCliente = scanner.nextLong();
+			clienteEncontrado = gestionCliente.buscarClientePorCodigo(listaClientes, codCliente);
+		}
+		return clienteEncontrado;
 	}
 
 	public Obra BuscarObra() throws IOException {
@@ -113,6 +126,46 @@ public class ControladorGalería {
 				gestionObras.Eliminar(this.listaObras);
 		}
 	
+	}
+	
+	private long ultimaCompra()
+	{
+		long ultimacompra = 0;
+		for (int p = 0; p < compras.size(); p++) {
+			if(compras.get(p).getCodigoCompra() > ultimacompra)
+				ultimacompra = compras.get(p).getCodigoCompra();
+		}
+		return ultimacompra;
+	}
+	
+	public void ComprarObra()
+	{
+		Obra obraComprar = null;
+		Cliente comprador = null;
+		Compra compra = null;
+		while(obraComprar == null)
+		{
+			try {
+				obraComprar = BuscarObra();
+			} catch (IOException e) {
+				System.out.println("La obra a comprar no pudo ser encontrada, intentelo nuevamente, por favor.");
+			}
+			if(obraComprar.getEstado() == false)
+			{
+				System.out.println("La obra a comprar no esta disponible, intentelo nuevamente, por favor.");	
+			}
+		}
+		while(comprador == null)
+		{
+			try {
+				comprador = BuscarCliente();
+			} catch (IOException e) {
+				System.out.println("El cliente no pudo ser encontrado, intentelo nuevamente, por favor.");
+			}
+		}
+		compra = new Compra(ultimaCompra()+1,LocalDate.now(),true);
+		obraComprar.setEstado(false);
+		compras.add(compra);
 	}
 
 }
