@@ -265,7 +265,7 @@ public class GestionObras {
                 System.out.println("Precio de Referencia : "+ bb.get(y).getPrecioRef());
                 System.out.println("Dimensiones: "+ bb.get(y).getDimensiones());
                 System.out.println("Artista: "+ bb.get(y).getArtista());
-                if(bb.get(y).estado==false)
+                if(bb.get(y).getEstado()==false)
                     System.out.println("Estado: YA COMPRADO");
                 else {
                     System.out.println("Estado: AUN Disponible");
@@ -303,7 +303,7 @@ public class GestionObras {
                 System.out.println("Precio de Referencia : "+ bb.get(y).getPrecioRef());
                 System.out.println("Dimensiones: "+ bb.get(y).getDimensiones());
                 System.out.println("Artista: "+ bb.get(y).getArtista());
-                if(bb.get(y).estado==false)
+                if(bb.get(y).getEstado()==false)
                     System.out.println("Estado: YA COMPRADO");
                 else {
                     System.out.println("Estado: AUN Disponible");
@@ -339,7 +339,7 @@ public class GestionObras {
                 System.out.println("Precio de Referencia : "+ bb.get(y).getPrecioRef());
                 System.out.println("Dimensiones: "+ bb.get(y).getDimensiones());
                 System.out.println("Artista: "+ bb.get(y).getArtista());
-                if(bb.get(y).estado==false)
+                if(bb.get(y).getEstado()==false)
                     System.out.println("Estado: COMPRADO");
                 else {
                     System.out.println("Estado: Disponible");
