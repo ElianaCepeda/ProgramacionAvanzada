@@ -143,6 +143,7 @@ public class ControladorGalería {
 		Obra obraComprar = null;
 		Cliente comprador = null;
 		Compra compra = null;
+		long codigoCompra;
 		while(obraComprar == null)
 		{
 			try {
@@ -163,9 +164,12 @@ public class ControladorGalería {
 				System.out.println("El cliente no pudo ser encontrado, intentelo nuevamente, por favor.");
 			}
 		}
-		compra = new Compra(ultimaCompra()+1,LocalDate.now(),true);
+		codigoCompra = ultimaCompra()+1;
+		compra = new Compra(codigoCompra,LocalDate.now(),true);
 		obraComprar.setEstado(false);
 		compras.add(compra);
+		System.out.println("Su compra fue creada con codigo: " + codigoCompra);
+
 	}
 
 }
