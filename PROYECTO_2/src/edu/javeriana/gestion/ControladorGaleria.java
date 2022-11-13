@@ -11,7 +11,7 @@ import edu.javeriana.excepciones.GaleriaException;
 import java.io.IOException;
 import java.time.LocalDate;
 
-public class ControladorGalería {
+public class ControladorGaleria {
 
 	private List<Obra> listaObras = new LinkedList<>();
 	private List<Artista> listaArtistias = new LinkedList<>();
@@ -20,7 +20,7 @@ public class ControladorGalería {
 	private GestionClientes gestionCliente = new GestionClientes();
 	private List<Compra> compras = new LinkedList<>();
 
-	public ControladorGalería() {
+	public ControladorGaleria() {
 		this.listaObras = gestionObras.CrearLista();
 		gestionObras.CrearArtista(this.listaArtistias);
 		this.listaClientes = gestionCliente.CrearLista();
