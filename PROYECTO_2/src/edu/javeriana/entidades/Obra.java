@@ -4,8 +4,11 @@ import java.util.List;
 
 public class Obra {
 
-    public boolean estado;
-    private long codigoObra;
+    private boolean estado;
+    public void setEstado(boolean estado) {
+		this.estado = estado;
+	}
+	private long codigoObra;
     private String titulo;
     private LocalDate fecha;
     private float precioRef;
