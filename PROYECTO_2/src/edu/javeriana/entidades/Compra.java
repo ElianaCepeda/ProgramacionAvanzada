@@ -6,12 +6,37 @@ public class Compra {
     private LocalDate fecha;
     private boolean pagado;
     
+    private Obra obra;
+    private Cliente cliente;
     
-	public Compra(long codigoCompra, LocalDate fecha, boolean pagado) {
+    
+	public Obra getObra() {
+		return obra;
+	}
+
+
+	public void setObra(Obra obra) {
+		this.obra = obra;
+	}
+
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+
+	public Compra(long codigoCompra, Obra obra, Cliente cliente, LocalDate fecha, boolean pagado) {
 		super();
 		this.codigoCompra = codigoCompra;
 		this.fecha = fecha;
 		this.pagado = pagado;
+		this.cliente = cliente;
+		this.obra = obra;
 	}
 	
 	

@@ -6,6 +6,8 @@ import edu.javeriana.entidades.Artista;
 import edu.javeriana.entidades.Cliente;
 import edu.javeriana.entidades.Compra;
 import edu.javeriana.entidades.Obra;
+import edu.javeriana.excepciones.GaleriaException;
+
 import java.io.IOException;
 import java.time.LocalDate;
 
@@ -165,11 +167,39 @@ public class ControladorGalería {
 			}
 		}
 		codigoCompra = ultimaCompra()+1;
-		compra = new Compra(codigoCompra,LocalDate.now(),true);
+		compra = new Compra(codigoCompra,obraComprar, comprador, LocalDate.now(),true);
 		obraComprar.setEstado(false);
 		compras.add(compra);
 		System.out.println("Su compra fue creada con codigo: " + codigoCompra);
 
+	}
+	
+	public void eliminarCompra() throws GaleriaException
+	{
+		long cod;
+		String respuesta;
+		boolean encontrado = false;
+		System.out.println("Por favor digite el numero de compra que desea eliminar.");
+        Scanner scanner = new Scanner (System.in);
+        cod = scanner.nextLong();
+		for (int p = 0; p < compras.size(); p++)
+		{
+			if(compras.get(p).getCodigoCompra()==cod)
+			{
+				System.out.println("Esta compra fue encontrada: " + compras.get(p).toString());
+				System.out.println("Confirme que desea eliminar esta compra escribiendo SI");
+		        respuesta = scanner.next();
+		        if(respuesta.equalsIgnoreCase("si"))
+		        {
+					compras.get(p).getObra().setEstado(true);
+					compras.remove(p);
+					encontrado = true;
+		        }else
+		        	throw new GaleriaException("La compra no fue eliminada por desición del usuario.");
+			}
+		}
+		if(encontrado == false)
+			throw new GaleriaException("La compra no fue encontrada");
 	}
 
 }
