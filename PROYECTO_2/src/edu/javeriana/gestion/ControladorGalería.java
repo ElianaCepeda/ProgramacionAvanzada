@@ -140,6 +140,7 @@ public class ControladorGalería {
 		return ultimacompra;
 	}
 	
+	// Resuelve el punto 11 hacer compra
 	public void ComprarObra()
 	{
 		Obra obraComprar = null;
@@ -174,6 +175,7 @@ public class ControladorGalería {
 
 	}
 	
+	// Resuelve el punto 12, Eliminar compra
 	public void eliminarCompra() throws GaleriaException
 	{
 		long cod;
