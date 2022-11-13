@@ -11,7 +11,7 @@ public class Artista {
 	private long telefono;
 	private long codigoArtista;
 
-	public Artista(long cedula, String nombre, String apellidos, LocalDate fechaNacimiento, long telefono,long codigoArtista) {
+	public Artista(long codigoArtista, long cedula, String nombre, String apellidos, LocalDate fechaNacimiento, long telefono) {
 		super();
 		this.cedula = cedula;
 		this.nombre = nombre;
