@@ -6,27 +6,27 @@ public class Compra {
     private LocalDate fecha;
     private boolean pagado;
     
-    private Obra obra;
-    private Cliente cliente;
+    private Obra compraObra;
+    private Cliente compraCliente;
     
     
 	public Obra getObra() {
-		return obra;
+		return compraObra;
 	}
 
 
-	public void setObra(Obra obra) {
-		this.obra = obra;
+	public void setCompraObra(Obra obra) {
+		this.compraObra = obra;
 	}
 
 
-	public Cliente getCliente() {
-		return cliente;
+	public Cliente getCompraCliente() {
+		return compraCliente;
 	}
 
 
 	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+		this.compraCliente = cliente;
 	}
 
 
@@ -35,8 +35,8 @@ public class Compra {
 		this.codigoCompra = codigoCompra;
 		this.fecha = fecha;
 		this.pagado = pagado;
-		this.cliente = cliente;
-		this.obra = obra;
+		this.compraCliente = cliente;
+		this.compraObra = obra;
 	}
 	
 	
