@@ -1,6 +1,7 @@
 package edu.javeriana.control;
-class PantallaGalria {
-    public static void main(String[] args) {
+
+public class PantallaGaleria {
+    public static void Main(String[] args) {
 
 
     }
