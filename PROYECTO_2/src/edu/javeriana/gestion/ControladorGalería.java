@@ -52,10 +52,11 @@ public class ControladorGalería {
 		}
 	}
 
-	public void BuscarObra() throws IOException {
+	public Obra BuscarObra() throws IOException {
 		int dia, mes, año;
 		String ans, busca;
 		LocalDate uy;
+		Obra obraEncontrada = null;
 
 		try (Scanner scanner = new Scanner(System.in)) {
 			System.out.println("HOLA...POR DONDE QUIERES BUSCAR LA OBRA(T para titulo, A para artista o I por fecha)");
@@ -64,21 +65,22 @@ public class ControladorGalería {
 			if (ans.equalsIgnoreCase("T")) {
 				System.out.println("Escriba el titulo que quiera buscar");
 				busca = scanner.next();
-				nop.BuscaporTitulo(conObr, busca);
+				obraEncontrada = nop.BuscaporTitulo(conObr, busca);
 			} else if (ans.equalsIgnoreCase("A")) {
 				System.out.println("Escriba el Artista que quiera buscar");
 				busca = scanner.next();
-				nop.BuscaporArtista(conObr, busca);
+				obraEncontrada = nop.BuscaporArtista(conObr, busca);
 			} else if (ans.equalsIgnoreCase("I")) {
 				System.out.println("Escriba la fecha que quiera buscar...(1. año - 2.mes - 3.dia)");
 				año = scanner.nextInt();
 				mes = scanner.nextInt();
 				dia = scanner.nextInt();
 				uy = LocalDate.of(año, mes, dia);
-				nop.BuscaporFecha(conObr, uy);
+				obraEncontrada = nop.BuscaporFecha(conObr, uy);
 			} else
 				System.out.println("LA OPCIÓN NO EXISTE");
 		}
+		return obraEncontrada;
 	}
 
 	public void AgregarObra() {
@@ -112,5 +114,29 @@ public class ControladorGalería {
 			System.out.println("Telefono : " + conclien.get(p).getTelefono());
 		}
 	}
+	public void comprarObra() {
+		try (Scanner scanner = new Scanner(System.in)) {
+			System.out.println("HOLA...POR DONDE QUIERES BUSCAR LA OBRA(T para titulo, A para artista o I por fecha)");
+			ans = scanner.next();
 
+			if (ans.equalsIgnoreCase("T")) {
+				System.out.println("Escriba el titulo que quiera buscar");
+				busca = scanner.next();
+				nop.BuscaporTitulo(conObr, busca);
+			} else if (ans.equalsIgnoreCase("A")) {
+				System.out.println("Escriba el Artista que quiera buscar");
+				busca = scanner.next();
+				nop.BuscaporArtista(conObr, busca);
+			} else if (ans.equalsIgnoreCase("I")) {
+				System.out.println("Escriba la fecha que quiera buscar...(1. año - 2.mes - 3.dia)");
+				año = scanner.nextInt();
+				mes = scanner.nextInt();
+				dia = scanner.nextInt();
+				uy = LocalDate.of(año, mes, dia);
+				nop.BuscaporFecha(conObr, uy);
+			} else
+				System.out.println("LA OPCIÓN NO EXISTE");
+		}
+		
+	}
 }

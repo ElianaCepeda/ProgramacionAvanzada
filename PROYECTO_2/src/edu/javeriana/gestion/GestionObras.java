@@ -1,4 +1,5 @@
 package edu.javeriana.gestion;
+
 import java.time.LocalDate;
 import java.util.*;
 import java.util.Scanner;
@@ -245,9 +246,10 @@ public class GestionObras {
 
     }
 
-    public void BuscaporTitulo(List<Obra> bb, String otro)
+    public Obra BuscaporTitulo(List<Obra> bb, String otro)
     {
         boolean encontrado = false;
+        Obra obraEncontrada = null;
 
         for(int y=0; y<bb.size(); y++)
         {
@@ -268,7 +270,7 @@ public class GestionObras {
                 else {
                     System.out.println("Estado: AUN Disponible");
                 }
-
+                obraEncontrada = bb.get(y);
             }
         }
 
@@ -279,11 +281,13 @@ public class GestionObras {
             System.out.println("-------------------");
         }
 
-
+        return obraEncontrada;
     }
-    public void BuscaporArtista(List<Obra> bb, String t)
+    
+    public Obra BuscaporArtista(List<Obra> bb, String t)
     {
         boolean encontrado = false;
+        Obra obraEncontrada = null;
 
         for(int y=0; y<bb.size(); y++)
         {
@@ -304,6 +308,7 @@ public class GestionObras {
                 else {
                     System.out.println("Estado: AUN Disponible");
                 }
+                obraEncontrada = bb.get(y);
             }
         }
 
@@ -313,10 +318,12 @@ public class GestionObras {
             System.out.println("NO FUE ENCONTRADO");
             System.out.println("-------------------");
         }
+        return obraEncontrada;
     }
-    public void BuscaporFecha(List<Obra> bb, LocalDate yu)
+    public Obra BuscaporFecha(List<Obra> bb, LocalDate yu)
     {
         boolean encontrado = false;
+        Obra obraEncontrada = null;
 
         for(int y=0; y<bb.size(); y++)
         {
@@ -337,6 +344,7 @@ public class GestionObras {
                 else {
                     System.out.println("Estado: Disponible");
                 }
+                obraEncontrada = bb.get(y);
             }
         }
 
@@ -346,5 +354,6 @@ public class GestionObras {
             System.out.println("NO FUE ENCONTRADO");
             System.out.println("-------------------");
         }
+        return obraEncontrada;
     }
 }
