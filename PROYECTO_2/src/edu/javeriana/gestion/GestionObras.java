@@ -360,6 +360,7 @@ public class GestionObras {
 			    uu.add(num);
 
 			}
+			scanner.close();
 		}
         return num;
     }

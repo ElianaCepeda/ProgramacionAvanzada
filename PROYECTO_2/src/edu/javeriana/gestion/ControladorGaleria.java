@@ -25,8 +25,8 @@ public class ControladorGaleria {
 		listaClientes = new LinkedList<Cliente>();
 		compras = new LinkedList<Compra>();
 		GestionObras gestionObras = new GestionObras(this);
-		gestionObras.LlenarListaObras();
 		gestionObras.CrearArtista();
+		gestionObras.LlenarListaObras();
 		this.listaClientes = gestionCliente.CrearLista();
 	}
 
