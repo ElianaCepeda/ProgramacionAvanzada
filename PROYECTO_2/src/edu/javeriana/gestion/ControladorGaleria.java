@@ -13,16 +13,20 @@ import java.time.LocalDate;
 
 public class ControladorGaleria {
 
-	private List<Obra> listaObras = new LinkedList<>();
-	private List<Artista> listaArtistias = new LinkedList<>();
-	private GestionObras gestionObras = new GestionObras();
-	private List<Cliente> listaClientes = new LinkedList<>();
+	private List<Obra> listaObras;
+	private List<Artista> listaArtistias;
+	private List<Cliente> listaClientes;
 	private GestionClientes gestionCliente = new GestionClientes();
-	private List<Compra> compras = new LinkedList<>();
+	private List<Compra> compras;
 
 	public ControladorGaleria() {
-		this.listaObras = gestionObras.CrearLista();
-		gestionObras.CrearArtista(this.listaArtistias);
+		listaObras = new LinkedList<Obra>();
+		listaArtistias = new LinkedList<Artista>();
+		listaClientes = new LinkedList<Cliente>();
+		compras = new LinkedList<Compra>();
+		GestionObras gestionObras = new GestionObras(this);
+		gestionObras.LlenarListaObras();
+		gestionObras.CrearArtista();
 		this.listaClientes = gestionCliente.CrearLista();
 	}
 
@@ -68,7 +72,9 @@ public class ControladorGaleria {
 		int dia, mes, año;
 		String ans, busca;
 		LocalDate uy;
+		long buscaCod;
 		Obra obraEncontrada = null;
+		GestionObras gestionObras = new GestionObras(this);
 
 		try (Scanner scanner = new Scanner(System.in)) {
 			System.out.println("HOLA...POR DONDE QUIERES BUSCAR LA OBRA(T para titulo, A para artista o I por fecha)");
@@ -77,18 +83,18 @@ public class ControladorGaleria {
 			if (ans.equalsIgnoreCase("T")) {
 				System.out.println("Escriba el titulo que quiera buscar");
 				busca = scanner.next();
-				obraEncontrada= gestionObras.BuscaporTitulo(listaObras, busca);
+				obraEncontrada= gestionObras.BuscaporTitulo( busca);
 			} else if (ans.equalsIgnoreCase("A")) {
-				System.out.println("Escriba el Artista que quiera buscar");
-				busca = scanner.next();
-				obraEncontrada = gestionObras.BuscaporArtista(listaObras, busca);
+				System.out.println("Escriba el codigo del Artista que quiera buscar");
+				buscaCod = scanner.nextLong();
+				obraEncontrada = gestionObras.BuscaporArtista(buscaCod);
 			} else if (ans.equalsIgnoreCase("I")) {
 				System.out.println("Escriba la fecha que quiera buscar...(1. año - 2.mes - 3.dia)");
 				año = scanner.nextInt();
 				mes = scanner.nextInt();
 				dia = scanner.nextInt();
 				uy = LocalDate.of(año, mes, dia);
-				obraEncontrada = gestionObras.BuscaporFecha(listaObras, uy);
+				obraEncontrada = gestionObras.BuscaporFecha(uy);
 			} else
 				System.out.println("LA OPCIÓN NO EXISTE");
 		}
@@ -96,7 +102,8 @@ public class ControladorGaleria {
 	}
 
 	public void AgregarObra() {
-		gestionObras.InsertarnuevaObra(listaObras, listaArtistias);
+		GestionObras gestionObras = new GestionObras(this);
+		gestionObras.InsertarNuevaObra();
 	}
 
 	public void MenuListaClientes() throws IOException {
@@ -116,16 +123,18 @@ public class ControladorGaleria {
 	}
 
 	public void MenuListaObras() throws IOException {
+		GestionObras gestionObras = new GestionObras(this);
+
 		try (Scanner scanner = new Scanner(System.in)) {
 			boolean ans;
 			System.out.println("¿Va a modificar alguna obra?");
 			ans = scanner.nextBoolean();
 			if (ans == true)
-				gestionObras.Modificar(this.listaObras);
+				gestionObras.Modificar();
 			System.out.println("¿Va a eliminar alguna obra?");
 			ans = scanner.nextBoolean();
 			if (ans == true)
-				gestionObras.Eliminar(this.listaObras);
+				gestionObras.Eliminar();
 		}
 	
 	}
@@ -182,26 +191,59 @@ public class ControladorGaleria {
 		String respuesta;
 		boolean encontrado = false;
 		System.out.println("Por favor digite el numero de compra que desea eliminar.");
-        Scanner scanner = new Scanner (System.in);
-        cod = scanner.nextLong();
-		for (int p = 0; p < compras.size(); p++)
-		{
-			if(compras.get(p).getCodigoCompra()==cod)
+        try (Scanner scanner = new Scanner (System.in)) {
+			cod = scanner.nextLong();
+			for (int p = 0; p < compras.size(); p++)
 			{
-				System.out.println("Esta compra fue encontrada: " + compras.get(p).toString());
-				System.out.println("Confirme que desea eliminar esta compra escribiendo SI");
-		        respuesta = scanner.next();
-		        if(respuesta.equalsIgnoreCase("si"))
-		        {
-					compras.get(p).getObra().setEstado(true);
-					compras.remove(p);
-					encontrado = true;
-		        }else
-		        	throw new GaleriaException("La compra no fue eliminada por desición del usuario.");
+				if(compras.get(p).getCodigoCompra()==cod)
+				{
+					System.out.println("Esta compra fue encontrada: " + compras.get(p).toString());
+					System.out.println("Confirme que desea eliminar esta compra escribiendo SI");
+			        respuesta = scanner.next();
+			        if(respuesta.equalsIgnoreCase("si"))
+			        {
+						compras.get(p).getObra().setEstado(true);
+						compras.remove(p);
+						encontrado = true;
+			        }else
+			        	throw new GaleriaException("La compra no fue eliminada por desición del usuario.");
+				}
 			}
 		}
-		if(encontrado == false)
+        if(encontrado == false)
 			throw new GaleriaException("La compra no fue encontrada");
+	}
+
+	public List<Obra> getListaObras() {
+		return listaObras;
+	}
+
+	public void setListaObras(List<Obra> listaObras) {
+		this.listaObras = listaObras;
+	}
+
+	public List<Artista> getListaArtistias() {
+		return listaArtistias;
+	}
+
+	public void setListaArtistias(List<Artista> listaArtistias) {
+		this.listaArtistias = listaArtistias;
+	}
+
+	public List<Cliente> getListaClientes() {
+		return listaClientes;
+	}
+
+	public void setListaClientes(List<Cliente> listaClientes) {
+		this.listaClientes = listaClientes;
+	}
+
+	public List<Compra> getCompras() {
+		return compras;
+	}
+
+	public void setCompras(List<Compra> compras) {
+		this.compras = compras;
 	}
 
 }

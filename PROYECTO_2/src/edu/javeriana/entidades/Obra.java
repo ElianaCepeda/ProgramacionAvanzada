@@ -13,7 +13,7 @@ public class Obra {
     private LocalDate fecha;
     private float precioRef;
     private String dimensiones;
-    private String Artista;
+    private List<Artista> autores;
 
     public Obra()
     {
@@ -22,21 +22,21 @@ public class Obra {
         this.fecha=null;
         this.precioRef = 0;
         this.dimensiones="";
-        this.Artista ="";
+        this.autores = null;
     }
 
-    public Obra(long o, String y, LocalDate date, float precio, String dime, String artis)
+    public Obra(long o, String y, LocalDate date, float precio, String dime, List<Artista> artis)
     {
         this.codigoObra = o;
         this.titulo=y;
         this.fecha=date;
         this.precioRef = precio;
         this.dimensiones= dime;
-        this.Artista = artis;
+        this.autores = artis;
         estado = true;
     }
 
-    public boolean EvaluacionCodigo(List<Obra> actual, Long cod)
+    public static boolean EvaluacionCodigo(List<Obra> actual, Long cod)
     {
         if(Long.toString(cod).length() != 7)
         {
@@ -76,9 +76,9 @@ public class Obra {
     {
         this.dimensiones = news;
     }
-    public void setArtista(String news)
+    public void setArtista(List<Artista> news)
     {
-        this.Artista = news;
+        this.autores = news;
     }
     public Long getCodigoObra()
     {
@@ -100,9 +100,9 @@ public class Obra {
     {
         return this.dimensiones;
     }
-    public String getArtista()
+    public List<Artista> getArtista()
     {
-        return this.Artista;
+        return this.autores;
     }
     public boolean getEstado(){ return this.estado;}
 
