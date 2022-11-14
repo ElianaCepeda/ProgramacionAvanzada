@@ -130,6 +130,7 @@ public class GestionObras {
 			    precioRef = scanner.nextFloat();
 			    System.out.println("Dimensiones");
 			    dimen = scanner.next();
+			    // TODO: preferible cambiar el listado de artistas por un HashMap
 			    while(artistaSeleccionado==false)
 			    {
 			    	System.out.println("Selecciona el autor de esta obra, o crea uno nuevo:");

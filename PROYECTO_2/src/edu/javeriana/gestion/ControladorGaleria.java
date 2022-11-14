@@ -19,6 +19,7 @@ public class ControladorGaleria {
 	private List<Compra> compras;
 
 	public ControladorGaleria() {
+		// TODO: Llenar las clases con datos iniciales para poder probar el programa, preferiblemente desde un archivo o por medio de codigo en lugar de preguntarlo a los usuarios
 		listaObras = new LinkedList<Obra>();
 		listaArtistias = new LinkedList<Artista>();
 		listaClientes = new LinkedList<Cliente>();
