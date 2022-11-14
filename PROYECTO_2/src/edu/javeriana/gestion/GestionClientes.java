@@ -1,12 +1,18 @@
 package edu.javeriana.gestion;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
 import edu.javeriana.entidades.Cliente;
 
 public class GestionClientes {
+	
+	private ControladorGaleria galeria;
+
+	public GestionClientes (ControladorGaleria galeriaPadre)
+	{
+		this.galeria = galeriaPadre;
+	}
 
     public List<Cliente> CrearLista( )
     {
@@ -14,7 +20,7 @@ public class GestionClientes {
         long cod, TID, telefono;
         String nom, aph, direcc;
 
-        List<Cliente> lista = new LinkedList<>();
+        List<Cliente> lista = galeria.getListaClientes();
 
         try (Scanner scanner = new Scanner (System.in)) {
 			System.out.println("BIENVENIDO DE NUEVO...DIGANOS ¿Cuántos clientes hay en galería?");
@@ -50,11 +56,12 @@ public class GestionClientes {
         return lista;
     }
 
-    public void InsertarNuevoCliente( List<Cliente> actuales)
+    public void InsertarNuevoCliente()
     {
         long cod, TID, telefono;
         String nom, aph, direcc;
         boolean hy=true;
+        List<Cliente> actuales = galeria.getListaClientes();
 
         try (Scanner scanner = new Scanner (System.in)) {
 			Cliente ab = null;
@@ -94,8 +101,10 @@ public class GestionClientes {
 		}
 
     }
-    public void Modificar(List<Cliente> mod)
+    public void Modificar()
     {
+        List<Cliente> mod = galeria.getListaClientes();
+
         int ans, yu;
         long i, cod, TID, telefono;
         String nom, aph, direcc;
@@ -164,11 +173,12 @@ public class GestionClientes {
             }
         }
     }
-    public void Eliminar(List<Cliente> gg)
+    public void Eliminar()
     {
         int yu;
         Long i;
         boolean jj = false;
+        List<Cliente> gg = galeria.getListaClientes();
 
         Scanner scanner = new Scanner (System.in);
 
@@ -191,7 +201,9 @@ public class GestionClientes {
 
     }
 
-	public Cliente buscarClientePorCodigo(List<Cliente> lista, Long codCliente) {
+	public Cliente buscarClientePorCodigo(Long codCliente) {
+		
+		List<Cliente> lista = galeria.getListaClientes();
 		Cliente clienteEncontrado = null;
         for(int yu = 0; yu< lista.size(); yu++)
         {

@@ -16,7 +16,6 @@ public class ControladorGaleria {
 	private List<Obra> listaObras;
 	private List<Artista> listaArtistias;
 	private List<Cliente> listaClientes;
-	private GestionClientes gestionCliente = new GestionClientes();
 	private List<Compra> compras;
 
 	public ControladorGaleria() {
@@ -27,7 +26,8 @@ public class ControladorGaleria {
 		GestionObras gestionObras = new GestionObras(this);
 		gestionObras.CrearArtista();
 		gestionObras.LlenarListaObras();
-		this.listaClientes = gestionCliente.CrearLista();
+		GestionClientes gestionCliente = new GestionClientes(this);
+		gestionCliente.CrearLista();
 	}
 
 	public void VerListaObrasDisponibles() {
@@ -60,10 +60,11 @@ public class ControladorGaleria {
 	public Cliente BuscarCliente() throws IOException {
 		Long codCliente;
 		Cliente clienteEncontrado;
+		GestionClientes gestionCliente = new GestionClientes(this);
 		try (Scanner scanner = new Scanner(System.in)) {
 			System.out.println("Escriba el codigo del cliente");
 			codCliente = scanner.nextLong();
-			clienteEncontrado = gestionCliente.buscarClientePorCodigo(listaClientes, codCliente);
+			clienteEncontrado = gestionCliente.buscarClientePorCodigo(codCliente);
 		}
 		return clienteEncontrado;
 	}
@@ -107,17 +108,19 @@ public class ControladorGaleria {
 	}
 
 	public void MenuListaClientes() throws IOException {
+		GestionClientes gestionCliente = new GestionClientes(this);
+
 		try (Scanner scanner = new Scanner(System.in)) {
 			boolean ans1;
 
 			System.out.println("¿Va a modificar alguna obra?");
 			ans1 = scanner.nextBoolean();
 			if (ans1 == true)
-				gestionCliente.Modificar(this.listaClientes);
+				gestionCliente.Modificar();
 			System.out.println("¿Va a eliminar alguna obra?");
 			ans1 = scanner.nextBoolean();
 			if (ans1 == true)
-				gestionCliente.Eliminar(this.listaClientes);
+				gestionCliente.Eliminar();
 		}
 
 	}
