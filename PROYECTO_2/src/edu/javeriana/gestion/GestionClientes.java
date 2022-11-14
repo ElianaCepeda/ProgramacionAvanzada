@@ -1,6 +1,5 @@
 package edu.javeriana.gestion;
 
-import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -17,38 +16,38 @@ public class GestionClientes {
 
         List<Cliente> lista = new LinkedList<>();
 
-        Scanner scanner = new Scanner (System.in);
+        try (Scanner scanner = new Scanner (System.in)) {
+			System.out.println("BIENVENIDO DE NUEVO...DIGANOS ¿Cuántos clientes hay en galería?");
+			ia = scanner.nextInt();
+			while(ia < 1 )
+			{
+			    System.out.println("El numero de clientes no puede ser menor que 1 ... DIGANOS ¿Cuántos clientes hay en galería?");
+			    ia = scanner.nextInt();
+			}
+			for(int y=0; y<ia; y++)
+			{
+			    System.out.println(" Vamos a llenar la lista... Escriba los Datos de TODOS LOS CLIENTES");
+			    System.out.println(" Codigo del Cliente");
+			    cod = scanner.nextLong();
+			    System.out.println("Cedula");
+			    TID = scanner.nextLong();
+			    System.out.println("Nombres");
+			    nom = scanner.next();
+			    System.out.println("Apellidos");
+			    aph = scanner.next();
+			    System.out.println("Dirección de entrega");
+			    direcc = scanner.next();
+			    System.out.println("Telefonos");
+			    telefono = scanner.nextLong();
+			    
+			    
+			    Cliente numerosos = new Cliente(cod, TID, nom, aph, direcc, telefono,true, null);
+			    lista.add(numerosos);
 
-        System.out.println("BIENVENIDO DE NUEVO...DIGANOS ¿Cuántos clientes hay en galería?");
-        ia = scanner.nextInt();
-        while(ia < 1 )
-        {
-            System.out.println("El numero de clientes no puede ser menor que 1 ... DIGANOS ¿Cuántos clientes hay en galería?");
-            ia = scanner.nextInt();
-        }
-        for(int y=0; y<ia; y++)
-        {
-            System.out.println(" Vamos a llenar la lista... Escriba los Datos de TODOS LOS CLIENTES");
-            System.out.println(" Codigo del Cliente");
-            cod = scanner.nextLong();
-            System.out.println("Cedula");
-            TID = scanner.nextLong();
-            System.out.println("Nombres");
-            nom = scanner.next();
-            System.out.println("Apellidos");
-            aph = scanner.next();
-            System.out.println("Dirección de entrega");
-            direcc = scanner.next();
-            System.out.println("Telefonos");
-            telefono = scanner.nextLong();
-            
-            
-            Cliente numerosos = new Cliente(cod, TID, nom, aph, direcc, telefono,true, null);
-            lista.add(numerosos);
+			}
+		}
 
-        }
-
-      return lista;
+        return lista;
     }
 
     public void InsertarNuevoCliente( List<Cliente> actuales)
@@ -57,42 +56,42 @@ public class GestionClientes {
         String nom, aph, direcc;
         boolean hy=true;
 
-        Scanner scanner = new Scanner (System.in);
+        try (Scanner scanner = new Scanner (System.in)) {
+			Cliente ab = null;
+			System.out.println(" Vamos a Agregar una nuevo cliente a la lista... Escriba sus datos");
+			System.out.println(" Codigo del Cliente: ");
+			cod = scanner.nextLong();
+			
+			while(hy==true)
+			{
+				hy=false;
+			    for(int u=0; u<actuales.size(); u++)
+			    {
+			        if(cod== actuales.get(u).getCodigoCliente())
+			            hy=true;
+			    }
+			    if(hy)
+			        System.out.println("-----El cliente no existe, por favor digite nuevamente el codigo de cliente: -----");
+			}
+			if(hy==false)
+			{
+			    System.out.println(" Codigo del Cliente");
+			    cod = scanner.nextLong();
+			    System.out.println("Cedula");
+			    TID = scanner.nextLong();
+			    System.out.println("Nombres");
+			    nom = scanner.next();
+			    System.out.println("Apellidos");
+			    aph = scanner.next();
+			    System.out.println("Dirección de entrega");
+			    direcc = scanner.next();
+			    System.out.println("Telefonos");
+			    telefono = scanner.nextLong();
 
-        Cliente ab = null;
-        System.out.println(" Vamos a Agregar una nuevo cliente a la lista... Escriba sus datos");
-        System.out.println(" Codigo del Cliente: ");
-        cod = scanner.nextLong();
-        
-        while(hy==true)
-        {
-        	hy=false;
-	        for(int u=0; u<actuales.size(); u++)
-	        {
-	            if(cod== actuales.get(u).getCodigoCliente())
-	                hy=true;
-	        }
-	        if(hy)
-	            System.out.println("-----El cliente no existe, por favor digite nuevamente el codigo de cliente: -----");
-        }
-        if(hy==false)
-        {
-            System.out.println(" Codigo del Cliente");
-            cod = scanner.nextLong();
-            System.out.println("Cedula");
-            TID = scanner.nextLong();
-            System.out.println("Nombres");
-            nom = scanner.next();
-            System.out.println("Apellidos");
-            aph = scanner.next();
-            System.out.println("Dirección de entrega");
-            direcc = scanner.next();
-            System.out.println("Telefonos");
-            telefono = scanner.nextLong();
-
-            ab = new Cliente(cod, TID, nom, aph, direcc, telefono, true, null);
-            actuales.add(ab);
-        }
+			    ab = new Cliente(cod, TID, nom, aph, direcc, telefono, true, null);
+			    actuales.add(ab);
+			}
+		}
 
     }
     public void Modificar(List<Cliente> mod)
